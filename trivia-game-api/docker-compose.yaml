@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: express-trivia-api
+    ports:
+      - "3000:3000"  # Expose the app on port 3000
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: # Your database URL here (optional)
+    networks:
+      - trivia_network
+    volumes:
+      - .:/app
+    restart: always
+
+  # Example for a MongoDB service (optional)
+  db:
+    image: mongo:latest
+    container_name: trivia-db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: trivia
+    volumes:
+      - trivia_data:/data/db
+    networks:
+      - trivia_network
+    ports:
+      - "27017:27017"
+
+networks:
+  trivia_network:
+    driver: bridge
+
+volumes:
+  trivia_data:
