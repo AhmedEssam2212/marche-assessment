@@ -99,9 +99,7 @@ export class GameService {
         )
       );
     }
-    console.log("user id", userId);
 
-    console.log("game", JSON.stringify(game));
     if (!game.players.some((player: any) => player.id === userId)) {
       next(
         new UnAuthorizedException(
@@ -132,12 +130,10 @@ export class GameService {
     const question = await this.getQuestion(gameId, userId, next);
 
     const isCorrect = question.correctAnswer === answer;
-    console.log("isCorrect", isCorrect);
 
     if (isCorrect) {
       await this.leaderboardRepository.updateScore(gameId, userId);
     }
-    console.log("after update score");
 
     return {
       isCorrect: isCorrect,

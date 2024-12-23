@@ -24,7 +24,6 @@ export class LeaderboardRepository {
   }
 
   async findAll(gameId: number) {
-    console.log("GGGGGGG");
     try {
       return await prisma.leaderboard.findMany({
         where: { gameId },

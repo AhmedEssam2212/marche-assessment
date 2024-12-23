@@ -80,7 +80,6 @@ export class GameController {
     try {
       const { gameId } = req.params;
       const userId = (req as any).user.userId;
-      console.log("gameId :", gameId);
       const question = await this.gameService.getQuestion(
         Number(gameId),
         userId,
